@@ -49,6 +49,9 @@ public class FXMLController {
     @FXML
     void doCalcola(ActionEvent event) {
     	
+    	this.txtCorretti.setText(null);
+    	this.txtErrati.setText(null);
+    	
     	String inserimento = this.txtInserimento.getText().toLowerCase();
     	
     	StringTokenizer st = new StringTokenizer(inserimento, " ");
@@ -70,7 +73,14 @@ public class FXMLController {
     		return;
     	}
     	
-    	// cercare anagrammi e vedere se sono corretti
+    	Set<String> anagrammi = this.model.calcolaAnagrammi(parola);
+    	for(String s : anagrammi) {
+    		if(this.model.isCorrect(s))
+    			this.txtCorretti.appendText(s+"\n");
+    		else
+    			this.txtErrati.appendText(s+"\n");
+    	}
+    	
 
     }
 
